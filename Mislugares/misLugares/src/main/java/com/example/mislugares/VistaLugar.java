@@ -1,7 +1,13 @@
 package com.example.mislugares;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -55,6 +61,46 @@ public class VistaLugar extends Activity {
         });
 
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.vista_lugar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        switch(menuItem.getItemId()) {
+            case R.id.accion_compartir:
+                return true;
+            case R.id.accion_llegar:
+                return true;
+            case R.id.accion_editar:
+                Intent i = new Intent(this, EdicionLugar.class);
+                //i.putExtra("id", id);
+                startActivity(i);
+                return true;
+            case R.id.accion_borrar:
+                new AlertDialog.Builder(this).setMessage("¿Esta seguro que desea Borrarlo?")
+                        .setTitle("Borrar Lugar")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Lugares.borrar((int) id);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancelar",null)
+                        .show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
 
     }
 

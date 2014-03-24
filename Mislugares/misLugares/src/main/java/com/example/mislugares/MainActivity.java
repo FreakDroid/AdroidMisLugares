@@ -1,5 +1,7 @@
 package com.example.mislugares;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends ActionBarActivity {
     private Button bAcercade;
@@ -61,9 +64,20 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void lanzarVistasLugar(View view){
-        Intent i = new Intent(this, VistaLugar.class);
-        i.putExtra("id", (long)0);
-        startActivity(i);
+        final EditText entrada = new EditText(this);
+        entrada.setText("0");
+        new AlertDialog.Builder(this).setTitle("Seleccione un lugar")
+                .setMessage("Introduzca un Id")
+                .setView(entrada)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        long id = Long.parseLong(entrada.getText().toString());
+                        Intent i = new Intent(MainActivity.this, VistaLugar.class);
+                        i.putExtra("id", id);
+                        startActivity(i);
+                    }})
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
 
