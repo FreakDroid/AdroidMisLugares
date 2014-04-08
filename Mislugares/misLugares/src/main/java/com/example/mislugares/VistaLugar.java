@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,6 +32,11 @@ public class VistaLugar extends Activity {
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
         lugar = Lugares.elemento((int) id);
+        actualizarVistas();
+    }
+
+    public void actualizarVistas()
+    {
         TextView nombre = (TextView) findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = (ImageView) findViewById(R.id.logo_tipo);
@@ -59,9 +66,6 @@ public class VistaLugar extends Activity {
                 lugar.setValoracion(valor);
             }
         });
-
-
-
     }
 
     @Override
@@ -72,17 +76,31 @@ public class VistaLugar extends Activity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1234) {
+            actualizarVistas();
+            //findViewById(R.id.scrollView1).invalidate();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem menuItem)
     {
         switch(menuItem.getItemId()) {
             case R.id.accion_compartir:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,
+                        lugar.getNombre() + " - "+ lugar.getUrl());
+                startActivity(intent);
                 return true;
             case R.id.accion_llegar:
+                verMapa(null);
                 return true;
             case R.id.accion_editar:
-                Intent i = new Intent(this, EdicionLugar.class);
-                //i.putExtra("id", id);
-                startActivity(i);
+                Intent NewInten = new Intent(this, EdicionLugar.class);
+                NewInten.putExtra("id", id);
+                startActivityForResult(NewInten, 1234);
                 return true;
             case R.id.accion_borrar:
                 new AlertDialog.Builder(this).setMessage("¿Esta seguro que desea Borrarlo?")
@@ -103,5 +121,28 @@ public class VistaLugar extends Activity {
         }
 
     }
+    public void verMapa(View view) {
+        Uri uri;
+        double lat = lugar.getPosicion().getLatitud();
+        double lon = lugar.getPosicion().getLongitud();
+        if (lat != 0 || lon != 0) {
+            uri = Uri.parse("geo:" + lat + "," + lon);
+        } else {
+            uri = Uri.parse("geo:0,0?q=" + lugar.getDireccion());
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 
+    ///Colocar en la llamada
+    public void llamadaTelefono(View view) {
+        startActivity(new Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel:" + lugar.getTelefono())));
+    }
+
+    //Ver la pagina Web
+    public void pgWeb(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse(lugar.getUrl())));
+    }
 }

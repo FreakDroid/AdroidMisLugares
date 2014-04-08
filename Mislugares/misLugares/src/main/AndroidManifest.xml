@@ -21,6 +21,8 @@
             android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".VistaLugar"
             android:label="Vista lugar"></activity>
+        <activity android:name=".EdicionLugar"
+            android:label="Edicion Lugar"></activity>
     </application>
 
 </manifest>

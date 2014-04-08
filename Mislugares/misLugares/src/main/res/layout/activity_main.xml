@@ -1,48 +1,15 @@
-
-<LinearLayout
-    android:orientation="vertical"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false" />
     <TextView
-        android:layout_width="wrap_content"
-        android:textSize="20dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/app_name"
-        android:id="@+id/textView"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:text="@string/accion_preferencias"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:text="@string/accion_mostrar"
-        android:id="@+id/button2"
-        android:onClick="lanzarVistasLugar"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:text="@string/acerca_de"
-        android:id="@+id/button3"
-        android:layout_gravity="center_horizontal"
-        android:onClick="lanzarAcercaDe" />
-
-    <Button
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:text="@string/accion_salir"
-        android:id="@+id/button4"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No hay Lugares" />
+</FrameLayout>

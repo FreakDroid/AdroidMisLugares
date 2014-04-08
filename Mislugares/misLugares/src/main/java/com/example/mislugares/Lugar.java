@@ -7,6 +7,11 @@ public class Lugar {
 
     private String nombre;
     private String direccion;
+
+    public GeoPunto getPosicion() {
+        return posicion;
+    }
+
     private GeoPunto posicion;
     private String foto;
 
@@ -16,6 +21,19 @@ public class Lugar {
     private long fecha;
     private float valoracion;
     private TipoLugar tipo;
+
+    public void setPosicion(GeoPunto posicion) {
+        this.posicion = posicion;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public void setFecha(long fecha) {
+        this.fecha = fecha;
+    }
+
 
     public String getNombre()
     {
@@ -53,6 +71,14 @@ public class Lugar {
     {
         this.valoracion = valor;
     }
+    //public GeoPunto getPosicion(){}
+
+    public void setNombre(String Nombre) { this.nombre =Nombre;}
+    public void setDireccion (String Direccion){this.direccion=Direccion;}
+    public void setTipo (TipoLugar TIPO){this.tipo=TIPO;}
+    public void setTelefono (int Telefono){this.telefono=Telefono;}
+    public void setUrl (String URL){this.url = URL;}
+    public void setComentario (String Comentario){this.comentario=Comentario;}
 
 
 

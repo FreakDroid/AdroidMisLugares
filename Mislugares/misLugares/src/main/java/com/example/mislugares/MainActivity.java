@@ -1,6 +1,7 @@
 package com.example.mislugares;
 
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -13,10 +14,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends ActionBarActivity {
+public class  MainActivity extends ListActivity{
+    public BaseAdapter adaptador;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        adaptador = new MiAdaptador(this);
+        /*adaptador = new ArrayAdapter<String>(this,
+                R.layout.elemento_lista,
+                R.id.nombre,
+                Lugares.listaNombres());*/
+        setListAdapter(adaptador);
+    }
+}
+
+/*public class MainActivity extends ActionBarActivity {
     private Button bAcercade;
     private Button bSalir;
     private Button bVistaLugar;
@@ -51,11 +70,11 @@ public class MainActivity extends ActionBarActivity {
         });
 
 
-        /*if (savedInstanceState == null) {
+        *//*if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
-        }*/
+        }*//*
     }
 
     public void lanzarAcercaDe(View view){
@@ -80,7 +99,6 @@ public class MainActivity extends ActionBarActivity {
                 .show();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -101,9 +119,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
+    *//**
      * A placeholder fragment containing a simple view.
-     */
+     *//*
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -115,6 +133,4 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
-    }
-
-}
+    }*/
